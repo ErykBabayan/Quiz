@@ -1,5 +1,8 @@
+import React from "react";
+import IntroPage from "./Components/IntroPage";
+
 function App() {
-	return <h1 className="text-red-500 text-4xl">hello world</h1>;
+	return <IntroPage />;
 }
 
 export default App;
