@@ -8,8 +8,11 @@ function App() {
 	const [quiz, setQuiz] = React.useState([]);
 
 	function startQuiz() {
-		console.log("start");
 		setIsStarted((prevIsStarted) => !prevIsStarted);
+	}
+
+	function shuffleAnswers(arr) {
+		return arr.sort(() => Math.random() - 0.5);
 	}
 
 	React.useEffect(() => {
@@ -23,7 +26,7 @@ function App() {
 					const quizElement = {
 						id: index,
 						question: info.question,
-						allAnswers: allAnswers,
+						allAnswers: shuffleAnswers(allAnswers),
 						userAnswer: "",
 					};
 					quizArray.push(quizElement);
@@ -32,9 +35,9 @@ function App() {
 			});
 	}, []);
 
-	const renderQuiz = !isStarted ? <IntroPage start={() => startQuiz()} /> : <Quiz />;
+	const renderQuiz = !isStarted ? <IntroPage start={() => startQuiz()} /> : <Quiz quiz={quiz} quizState={setQuiz} />;
 
-	console.log(quiz);
+	//console.log(quiz);
 
 	return <div>{renderQuiz}</div>;
 }
