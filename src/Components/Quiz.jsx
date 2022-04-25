@@ -3,16 +3,14 @@ import Answer from "./Answer";
 
 export default function Quiz(props) {
 	//console.log(props);
-
-	const quizElement = props.quiz.map((item, index) => {
-		console.log(item);
-
+	console.log(props.quiz);
+	const quizElement = props.quiz.map((item) => {
 		return (
-			<form key={index}>
+			<form key={item.id}>
 				<legend>{item.question}</legend>
 				<fieldset>
 					{item.allAnswers.map((answers, index) => {
-						return <Answer />;
+						return <Answer key={index} id={answers} name={item.id} answer={answers} answerClick={props.handleAnswerClick} />;
 					})}
 				</fieldset>
 			</form>

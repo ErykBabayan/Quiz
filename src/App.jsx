@@ -1,4 +1,3 @@
-import { render } from "@testing-library/react";
 import React from "react";
 import IntroPage from "./Components/IntroPage";
 import Quiz from "./Components/Quiz";
@@ -13,6 +12,27 @@ function App() {
 
 	function shuffleAnswers(arr) {
 		return arr.sort(() => Math.random() - 0.5);
+	}
+
+	function handleAnswerClick(event) {
+		const { name, value, type, checked } = event.target;
+		const newArray = [];
+
+		console.log(quiz);
+
+		quiz.forEach((item) => {
+			if (item.id == name) {
+				item = {
+					...item,
+					userAnswer: value,
+				};
+				newArray.push(item);
+			} else {
+				newArray.push(item);
+			}
+		});
+
+		setQuiz(newArray);
 	}
 
 	React.useEffect(() => {
@@ -35,9 +55,11 @@ function App() {
 			});
 	}, []);
 
-	const renderQuiz = !isStarted ? <IntroPage start={() => startQuiz()} /> : <Quiz quiz={quiz} quizState={setQuiz} />;
-
-	//console.log(quiz);
+	const renderQuiz = !isStarted ? (
+		<IntroPage start={() => startQuiz()} />
+	) : (
+		<Quiz quiz={quiz} quizState={setQuiz} handleAnswerClick={handleAnswerClick} />
+	);
 
 	return <div>{renderQuiz}</div>;
 }
