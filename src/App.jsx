@@ -36,7 +36,7 @@ function App() {
 	}, []);
 
 	function handleAnswerClick(event) {
-		const { name, value, type, checked } = event.target;
+		const { name, value, checked } = event.target;
 		const newArray = [];
 
 		//console.log(quiz);
