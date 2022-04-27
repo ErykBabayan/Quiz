@@ -14,27 +14,6 @@ function App() {
 		return arr.sort(() => Math.random() - 0.5);
 	}
 
-	function handleAnswerClick(event) {
-		const { name, value, type, checked } = event.target;
-		const newArray = [];
-
-		console.log(quiz);
-
-		quiz.forEach((item) => {
-			if (item.id == name) {
-				item = {
-					...item,
-					userAnswer: value,
-				};
-				newArray.push(item);
-			} else {
-				newArray.push(item);
-			}
-		});
-
-		setQuiz(newArray);
-	}
-
 	React.useEffect(() => {
 		fetch("https://opentdb.com/api.php?amount=5")
 			.then((res) => res.json())
@@ -48,6 +27,7 @@ function App() {
 						question: info.question,
 						allAnswers: shuffleAnswers(allAnswers),
 						userAnswer: "",
+						isChecked: false,
 					};
 					quizArray.push(quizElement);
 				});
@@ -55,11 +35,29 @@ function App() {
 			});
 	}, []);
 
-	const renderQuiz = !isStarted ? (
-		<IntroPage start={() => startQuiz()} />
-	) : (
-		<Quiz quiz={quiz} quizState={setQuiz} handleAnswerClick={handleAnswerClick} />
-	);
+	function handleAnswerClick(event) {
+		const { name, value, type, checked } = event.target;
+		const newArray = [];
+
+		//console.log(quiz);
+
+		quiz.forEach((item) => {
+			if (item.id == name) {
+				item = {
+					...item,
+					userAnswer: value,
+					isChecked: checked,
+				};
+				newArray.push(item);
+			} else {
+				newArray.push(item);
+			}
+		});
+		//	console.log(quiz);
+		setQuiz(newArray);
+	}
+
+	const renderQuiz = !isStarted ? <IntroPage start={() => startQuiz()} /> : <Quiz quiz={quiz} handleAnswerClick={handleAnswerClick} />;
 
 	return <div>{renderQuiz}</div>;
 }
