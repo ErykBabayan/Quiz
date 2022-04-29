@@ -4,15 +4,8 @@ import Quiz from "./Components/Quiz";
 
 function App() {
 	const [isStarted, setIsStarted] = React.useState(false);
+	const [isGameFinished, setIsGameFinished] = React.useState(false);
 	const [quiz, setQuiz] = React.useState([]);
-
-	function startQuiz() {
-		setIsStarted((prevIsStarted) => !prevIsStarted);
-	}
-
-	function shuffleAnswers(arr) {
-		return arr.sort(() => Math.random() - 0.5);
-	}
 
 	React.useEffect(() => {
 		fetch("https://opentdb.com/api.php?amount=5")
@@ -25,6 +18,7 @@ function App() {
 					const quizElement = {
 						id: index,
 						question: info.question,
+						correctAnswer: info.correct_answer,
 						allAnswers: shuffleAnswers(allAnswers),
 						userAnswer: "",
 						isChecked: false,
@@ -35,29 +29,56 @@ function App() {
 			});
 	}, []);
 
+	function startQuiz() {
+		setIsStarted((prevIsStarted) => !prevIsStarted);
+	}
+
+	function shuffleAnswers(arr) {
+		return arr.sort(() => Math.random() - 0.5);
+	}
+
+	function handleGame() {
+		setIsGameFinished((previsGameFinished) => !previsGameFinished);
+		countScore();
+	}
+
+	function countScore() {
+		let finalScore = 0;
+		quiz.map((item) => {
+			if (item.userAnswer === item.correctAnswer) {
+				finalScore++;
+			}
+		});
+		return finalScore;
+	}
+
 	function handleAnswerClick(event) {
 		const { name, value, checked } = event.target;
 		const newArray = [];
 
-		//console.log(quiz);
-
-		quiz.forEach((item) => {
-			if (item.id == name) {
-				item = {
-					...item,
-					userAnswer: value,
-					isChecked: checked,
-				};
-				newArray.push(item);
-			} else {
-				newArray.push(item);
-			}
-		});
-		//	console.log(quiz);
-		setQuiz(newArray);
+		console.log(quiz);
+		if (!isGameFinished) {
+			quiz.forEach((item) => {
+				if (item.id == name) {
+					item = {
+						...item,
+						userAnswer: value,
+						isChecked: checked,
+					};
+					newArray.push(item);
+				} else {
+					newArray.push(item);
+				}
+			});
+			setQuiz(newArray);
+		}
 	}
 
-	const renderQuiz = !isStarted ? <IntroPage start={() => startQuiz()} /> : <Quiz quiz={quiz} handleAnswerClick={handleAnswerClick} />;
+	const renderQuiz = !isStarted ? (
+		<IntroPage start={() => startQuiz()} />
+	) : (
+		<Quiz quiz={quiz} gameStatus={isGameFinished} handleAnswerClick={handleAnswerClick} handleGame={handleGame} />
+	);
 
 	return <div>{renderQuiz}</div>;
 }
