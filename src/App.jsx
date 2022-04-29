@@ -56,7 +56,6 @@ function App() {
 		const { name, value, checked } = event.target;
 		const newArray = [];
 
-		console.log(quiz);
 		if (!isGameFinished) {
 			quiz.forEach((item) => {
 				if (item.id == name) {

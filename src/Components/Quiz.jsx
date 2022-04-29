@@ -2,7 +2,6 @@ import React from "react";
 import Answer from "./Answer";
 
 export default function Quiz(props) {
-	console.log(props.quiz);
 	const quizElement = props.quiz.map((item) => {
 		return (
 			<form key={item.id}>
