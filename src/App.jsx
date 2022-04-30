@@ -6,6 +6,7 @@ function App() {
 	const [isStarted, setIsStarted] = React.useState(false);
 	const [isGameFinished, setIsGameFinished] = React.useState(false);
 	const [quiz, setQuiz] = React.useState([]);
+	const [newGame, setNewGame] = React.useState(false);
 
 	React.useEffect(() => {
 		fetch("https://opentdb.com/api.php?amount=5")
@@ -27,7 +28,7 @@ function App() {
 				});
 				setQuiz(quizArray);
 			});
-	}, []);
+	}, [newGame]);
 
 	function startQuiz() {
 		setIsStarted((prevIsStarted) => !prevIsStarted);
@@ -38,8 +39,13 @@ function App() {
 	}
 
 	function handleGame() {
-		setIsGameFinished((previsGameFinished) => !previsGameFinished);
-		countScore();
+		setIsGameFinished((prevIsGameFinished) => !prevIsGameFinished);
+	}
+
+	function playAgain() {
+		setNewGame((prevGame) => !prevGame);
+		handleGame();
+		startQuiz();
 	}
 
 	function countScore() {
@@ -50,6 +56,11 @@ function App() {
 			}
 		});
 		return finalScore;
+	}
+
+	let score;
+	if (isGameFinished) {
+		score = countScore();
 	}
 
 	function handleAnswerClick(event) {
@@ -76,7 +87,14 @@ function App() {
 	const renderQuiz = !isStarted ? (
 		<IntroPage start={() => startQuiz()} />
 	) : (
-		<Quiz quiz={quiz} gameStatus={isGameFinished} handleAnswerClick={handleAnswerClick} handleGame={handleGame} />
+		<Quiz
+			quiz={quiz}
+			gameStatus={isGameFinished}
+			handleAnswerClick={handleAnswerClick}
+			handleGame={handleGame}
+			score={score}
+			playAgain={playAgain}
+		/>
 	);
 
 	return <div>{renderQuiz}</div>;

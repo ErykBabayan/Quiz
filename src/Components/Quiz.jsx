@@ -27,13 +27,24 @@ export default function Quiz(props) {
 		);
 	});
 
+	const quizButton = props.gameStatus ? (
+		<div className="inline">
+			<p className="mt-16 mb-8 text-center text-3xl">Your score : {props.score} / 5 </p>
+			<button onClick={props.playAgain} className="mb-4 px-16 py-6 border-2 bg-indigo-600 text-white text-3xl rounded-2xl">
+				Play Again !
+			</button>
+		</div>
+	) : (
+		<button onClick={props.handleGame} className="mt-24 mb-16 px-12 py-6 border-2 bg-indigo-600 text-white text-3xl rounded-2xl">
+			Check Answers
+		</button>
+	);
+
 	return (
 		<div className=" flex justify-center text-blue-900 bg-indigo-50 h-full">
 			<div className="flex flex-wrap justify-center max-w-5xl bg-indigo-50 p-12">
 				<div>{quizElement}</div>
-				<button onClick={props.handleGame} className="mt-24 mb-16 px-12 py-6 border-2 bg-indigo-600 text-white text-2xl rounded-2xl">
-					Check Answers
-				</button>
+				{quizButton}
 			</div>
 		</div>
 	);
