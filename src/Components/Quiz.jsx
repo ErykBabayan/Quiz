@@ -1,11 +1,12 @@
 import React from "react";
 import Answer from "./Answer";
+import he from "he";
 
 export default function Quiz(props) {
 	const quizElement = props.quiz.map((item) => {
 		return (
 			<form key={item.id}>
-				<legend className="text-3xl py-6">{item.question}</legend>
+				<legend className="text-3xl py-6">{he.decode(item.question)}</legend>
 				<fieldset className="flex">
 					{item.allAnswers.map((answers, index) => {
 						return (
@@ -29,8 +30,8 @@ export default function Quiz(props) {
 
 	const quizButton = props.gameStatus ? (
 		<div className="inline">
-			<p className="mt-16 mb-8 text-center text-3xl">Your score : {props.score} / 5 </p>
-			<button onClick={props.playAgain} className="mb-4 px-16 py-6 border-2 bg-indigo-600 text-white text-3xl rounded-2xl">
+			<p className="mt-16 mb-8 text-center text-3xl font-bold">You scored : {props.score} / 5 </p>
+			<button onClick={props.playAgain} className="mb-4 px-16 py-6 border-2 bg-indigo-600 text-white text-3xl  rounded-2xl">
 				Play Again !
 			</button>
 		</div>

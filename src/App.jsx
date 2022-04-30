@@ -30,6 +30,11 @@ function App() {
 			});
 	}, [newGame]);
 
+	let score;
+	if (isGameFinished) {
+		score = countScore();
+	}
+
 	function startQuiz() {
 		setIsStarted((prevIsStarted) => !prevIsStarted);
 	}
@@ -56,11 +61,6 @@ function App() {
 			}
 		});
 		return finalScore;
-	}
-
-	let score;
-	if (isGameFinished) {
-		score = countScore();
 	}
 
 	function handleAnswerClick(event) {
