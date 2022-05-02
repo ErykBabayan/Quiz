@@ -8,7 +8,7 @@ export default function IntroPage(props) {
 			<div>
 				<button
 					onClick={props.start}
-					className="bg-indigo-700 hover:bg-indigo-600 active:bg-indigo-800 px-12 py-4 rounded-xl text-white text-2xl shadow-xl "
+					className="bg-indigo-700 hover:bg-indigo-600 active:bg-indigo-800 px-12 py-6 rounded-xl text-white text-2xl  "
 				>
 					Start quiz
 				</button>

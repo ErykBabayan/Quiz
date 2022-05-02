@@ -6,7 +6,7 @@ export default function Quiz(props) {
 	const quizElement = props.quiz.map((item) => {
 		return (
 			<form key={item.id}>
-				<legend className="text-3xl py-6">{he.decode(item.question)}</legend>
+				<legend className="text-sm sm:text-lg md:text-xl lg:text-2xl xl:text-3xl py-4 xl:py-6">{he.decode(item.question)}</legend>
 				<fieldset className="flex">
 					{item.allAnswers.map((answers, index) => {
 						return (
@@ -29,21 +29,27 @@ export default function Quiz(props) {
 	});
 
 	const quizButton = props.gameStatus ? (
-		<div className="inline">
-			<p className="mt-16 mb-8 text-center text-3xl font-bold">You scored : {props.score} / 5 </p>
-			<button onClick={props.playAgain} className="mb-4 px-16 py-6 border-2 bg-indigo-600 text-white text-3xl  rounded-2xl">
+		<div className="flex flex-wrap justify-center max-w-xs">
+			<p className="md:mt-12 mb-4 md:mb-8 text-center text-2xl lg:text-3xl font-bold">You scored : {props.score} / 5 </p>
+			<button
+				onClick={props.playAgain}
+				className="mb-2 md:mb-10 px-6 md:px-12 py-4 md:py-6 border-2 bg-indigo-600 border-none text-white text-xl rounded-2xl shadow-xl"
+			>
 				Play Again !
 			</button>
 		</div>
 	) : (
-		<button onClick={props.handleGame} className="mt-24 mb-16 px-12 py-6 border-2 bg-indigo-600 text-white text-3xl rounded-2xl">
+		<button
+			onClick={props.handleGame}
+			className="mt-2 mb-2 md:mb-10 px-6 md:px-12 py-4 md:py-6 border-2 bg-indigo-600 border-none text-white text-xl rounded-2xl shadow-xl"
+		>
 			Check Answers
 		</button>
 	);
 
 	return (
-		<div className=" flex justify-center text-blue-900 bg-indigo-50 h-full">
-			<div className="flex flex-wrap justify-center max-w-5xl bg-indigo-50 p-12">
+		<div className=" flex justify-center  bg-indigo-50 px-2 lg:p-12">
+			<div className="flex flex-wrap items-center justify-center lg: max-w-4xl xl:max-w-6xl h-screen text-blue-900 bg-indigo-50 sm:px-6 lg:px-18 xl:px-24 ">
 				<div>{quizElement}</div>
 				{quizButton}
 			</div>
