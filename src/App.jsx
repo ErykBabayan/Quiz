@@ -14,7 +14,7 @@ function App() {
 			.then((data) => {
 				const quizArray = [];
 
-				data.results.map((info, index) => {
+				data.results.forEach((info, index) => {
 					const allAnswers = info.incorrect_answers.concat(info.correct_answer);
 					const quizElement = {
 						id: index,
@@ -54,13 +54,7 @@ function App() {
 	}
 
 	function countScore() {
-		let finalScore = 0;
-		quiz.map((item) => {
-			if (item.userAnswer === item.correctAnswer) {
-				finalScore++;
-			}
-		});
-		return finalScore;
+		return quiz.filter((i) => i.userAnswer === i.correctAnswer).length;
 	}
 
 	function handleAnswerClick(event) {

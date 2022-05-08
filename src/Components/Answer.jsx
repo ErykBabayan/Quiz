@@ -28,7 +28,7 @@ export default function Answer(props) {
 	}
 	return (
 		<label
-			className="flex items-center mr-2 md:mr-4 lg:mr-6 text-xs sm:text-sm lg:text-lg xl:text-xl border-indigo-400 rounded-3xl border md:border-2 px-2 md:px-4 xl:px-6 py-1 md:py-2 cursor-pointer hover:bg-indigo-100 "
+			className="mr-6 mb-4 px-2 lg:px-4 py-2 text-base lg:text-xl  w-full sm:w-3/6 md:w-auto hover:bg-indigo-100 border-indigo-400 rounded-3xl border-2 cursor-pointer  "
 			style={styles}
 		>
 			<input className="hidden" onChange={props.answerClick} type="radio" name={props.name} id={props.id} value={props.answer} />
