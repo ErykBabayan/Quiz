@@ -1,5 +1,6 @@
 import React from "react";
 import Answer from "./Answer";
+import Button from "./Button";
 import he from "he";
 
 export default function Quiz(props) {
@@ -29,28 +30,12 @@ export default function Quiz(props) {
 		);
 	});
 
-	const quizButton = props.gameStatus ? (
-		<div className="flex flex-wrap justify-center max-w-xs">
-			<p className=" mt-0 text-center text-2xl lg:text-2xl font-bold">You scored : {props.score} / 5 </p>
-			<button onClick={props.playAgain} className="mt-2 px-12 py-4 border-2 bg-indigo-600 border-none text-white text-xl rounded-2xl shadow-xl">
-				Play Again !
-			</button>
-		</div>
-	) : (
-		<button
-			onClick={props.handleGame}
-			className=" md:mt-10 lg:mt-2 xl:mt-0 px-8 py-4 border-2 bg-indigo-600 border-none text-white text-xl rounded-2xl shadow-xl"
-		>
-			Check Answers
-		</button>
-	);
-
 	return (
 		<div className=" flex justify-center h-full md:h-screen bg-indigo-50 ">
 			<div className="flex flex-wrap items-center justify-center lg: max-w-4xl xl:max-w-6xl text-indigo-900 p-6 lg:pt-4   ">
 				<div className="flex flex-wrap justify-center">
 					<div>{quizElement}</div>
-					{quizButton}
+					<Button score={props.score} handleGame={props.handleGame} playAgain={props.playAgain} gameStatus={props.gameStatus} />
 				</div>
 			</div>
 		</div>

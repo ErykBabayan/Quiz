@@ -26,6 +26,7 @@ export default function Answer(props) {
 			};
 		}
 	}
+
 	return (
 		<label
 			className="mr-6 mb-4 px-2 lg:px-4 py-2 text-base lg:text-xl  w-full sm:w-3/6 md:w-auto hover:bg-indigo-100 border-indigo-400 rounded-3xl border-2 cursor-pointer  "
